@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — WipeX</title>
+  <meta name="description" content="WipeX Privacy Policy — no data collection, no tracking, everything runs locally in your browser.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#09090b;--surface:#18181b;--border:#27272a;--border-muted:#3f3f46;--accent:#e11d48;--text:#fafafa;--text-muted:#a1a1aa;--text-dim:#71717a;--radius:10px;--radius-lg:16px;}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+    .nav{position:sticky;top:0;z-index:100;background:rgba(9,9,11,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:820px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--text);font-size:17px;font-weight:700;letter-spacing:-.03em;}
+    .nav-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,#e11d48,#be123c);border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(225,29,72,.35);}
+    .nav-back{display:flex;align-items:center;gap:6px;color:var(--text-muted);text-decoration:none;font-size:13px;font-weight:500;padding:6px 10px;border-radius:6px;transition:color .15s,background .15s;}
+    .nav-back:hover{color:var(--text);background:var(--surface);}
+    main{max-width:640px;margin:0 auto;padding:64px 24px 80px;}
+    .page-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(225,29,72,.1);border:1px solid rgba(225,29,72,.25);color:#f87171;font-size:12px;font-weight:600;padding:4px 12px;border-radius:9999px;margin-bottom:20px;letter-spacing:.02em;}
+    h1{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-.04em;line-height:1.15;margin-bottom:12px;}
+    .updated{font-size:13px;color:var(--text-dim);margin-bottom:40px;}
+    /* TL;DR callout */
+    .tldr{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.2);border-radius:var(--radius-lg);padding:20px 24px;margin-bottom:32px;display:flex;gap:14px;}
+    .tldr-icon{font-size:22px;flex-shrink:0;margin-top:1px;}
+    .tldr-text h2{font-size:15px;font-weight:700;color:#4ade80;margin-bottom:6px;}
+    .tldr-text p{font-size:13.5px;color:#86efac;line-height:1.65;}
+    /* Sections */
+    .policy-section{margin-bottom:32px;}
+    .policy-section h2{font-size:16px;font-weight:700;margin-bottom:8px;letter-spacing:-.02em;}
+    .policy-section p,.policy-section li{font-size:14px;color:var(--text-muted);line-height:1.75;}
+    .policy-section ul{padding-left:20px;display:flex;flex-direction:column;gap:4px;}
+    .policy-section a{color:var(--accent);text-decoration:none;}
+    .policy-section a:hover{text-decoration:underline;}
+    footer{border-top:1px solid var(--border);text-align:center;padding:32px 24px;font-size:12px;color:var(--text-dim);}
+    footer a{color:var(--text-dim);text-decoration:none;margin:0 6px;}footer a:hover{color:var(--text-muted);}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+      WipeX
+    </a>
+    <a href="/" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-badge">Privacy Policy</div>
+  <h1>Your privacy, protected</h1>
+  <p class="updated">Last updated: July 2025</p>
+
+  <div class="tldr">
+    <div class="tldr-icon">✅</div>
+    <div class="tldr-text">
+      <h2>TL;DR — We collect nothing</h2>
+      <p>WipeX runs entirely in your browser. No account required. No data is ever sent to any server. No analytics, no cookies, no tracking. Your tweets stay on your device.</p>
+    </div>
+  </div>
+
+  <div class="policy-section">
+    <h2>1. What data we collect</h2>
+    <p><strong>None.</strong> WipeX does not collect, store, transmit, or share any personal data. The extension operates locally within your browser and interacts only with X/Twitter on your behalf.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>2. How the extension works</h2>
+    <p>WipeX is a Chrome extension that automates actions you would otherwise perform manually on X/Twitter — scrolling, clicking, and deleting. It reads tweet elements from the page DOM and simulates user interactions. All processing happens locally.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>3. Backup data</h2>
+    <p>When you use the backup feature, WipeX collects tweet text, dates, and URLs visible on your profile page and saves them <strong>directly to your device</strong> as a ZIP file. This data never leaves your browser or gets uploaded anywhere.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>4. Third-party services</h2>
+    <p>This landing page is hosted on Cloudflare Pages, which may collect anonymous request logs per their <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Privacy Policy</a>. We have no control over or access to that data.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>5. Cookies &amp; analytics</h2>
+    <p>This website does not use cookies or any analytics. No tracking pixels, no session recording, no fingerprinting.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>6. Your Twitter credentials</h2>
+    <p>WipeX never asks for your Twitter password, API keys, or OAuth tokens. It runs within your already-logged-in browser session — the same way you would manually delete tweets.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>7. Disclaimer</h2>
+    <p>WipeX is not affiliated with X Corp. Automated actions may violate X's Terms of Service. Use at your own risk. The creator accepts no liability for account actions taken by X as a result of using this tool.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>8. Changes to this policy</h2>
+    <p>If we ever change this policy, we'll update the date above. Since we collect nothing, changes will be minimal.</p>
+  </div>
+
+  <div class="policy-section">
+    <h2>9. Contact</h2>
+    <p>Questions? Reach out via <a href="https://x.com/miegrains" target="_blank" rel="noopener">@miegrains on X</a> or the <a href="contact.html">Contact page</a>.</p>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 WipeX — Not affiliated with X Corp.</p>
+  <p style="margin-top:8px"><a href="/">Home</a><a href="about.html">About</a><a href="contact.html">Contact</a></p>
+</footer>
+</body>
+</html>

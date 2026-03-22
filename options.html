@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WipeX Settings</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #09090b;
+      --surface: #18181b;
+      --surface-hover: #27272a;
+      --border: #27272a;
+      --border-muted: #3f3f46;
+      --accent: #e11d48;
+      --blue: #3b82f6;
+      --text: #fafafa;
+      --text-muted: #71717a;
+      --text-dim: #52525b;
+      --radius: 8px;
+      --radius-lg: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px 24px 80px;
+    }
+
+    /* Header */
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-icon {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 4px 16px rgba(225, 29, 72, 0.35);
+      flex-shrink: 0;
+    }
+
+    .page-title {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .page-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Sections */
+    .settings-section {
+      margin-bottom: 28px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 12px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .card-row {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-row:last-child { border-bottom: none; }
+
+    .row-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .row-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    /* Inputs */
+    input[type="date"],
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border-muted);
+      color: var(--text);
+      padding: 9px 12px;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input[type="date"]:focus,
+    input[type="text"]:focus,
+    input[type="number"]:focus,
+    textarea:focus {
+      border-color: var(--blue);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 72px;
+    }
+
+    .input-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    label.field-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    /* Checkboxes (Tweet Type) */
+    .checkbox-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border-muted);
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: border-color 0.15s;
+    }
+
+    .check-item:has(input:checked) {
+      border-color: var(--blue);
+      background: rgba(59, 130, 246, 0.06);
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--blue);
+      cursor: pointer;
+    }
+
+    .check-item span {
+      font-size: 13px;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    /* Toggle row (horizontal) */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .toggle { position: relative; cursor: pointer; }
+    .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+    .toggle-track {
+      display: block;
+      width: 36px;
+      height: 20px;
+      background: var(--border-muted);
+      border-radius: 99px;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .toggle-track::after {
+      content: '';
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      background: white;
+      transition: transform 0.2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+    .toggle input:checked + .toggle-track { background: var(--blue); }
+    .toggle input:checked + .toggle-track::after { transform: translateX(16px); }
+
+    /* Session cool-down inline */
+    .inline-input {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex: 1;
+    }
+
+    .inline-input input[type="number"] {
+      width: 72px;
+      text-align: center;
+    }
+
+    .inline-input span {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      padding: 24px 0 0;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 10px 20px;
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: all 0.15s;
+    }
+
+    .btn:active { transform: scale(0.98); }
+
+    .btn-primary { background: var(--blue); color: white; }
+    .btn-primary:hover { background: #2563eb; }
+    .btn-secondary { background: var(--surface); color: var(--text); border: 1px solid var(--border-muted); }
+    .btn-secondary:hover { background: var(--surface-hover); }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border-muted);
+      color: var(--text);
+      padding: 12px 18px;
+      border-radius: var(--radius-lg);
+      font-size: 13px;
+      font-weight: 500;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transform: translateY(80px);
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .toast-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #22c55e;
+      flex-shrink: 0;
+    }
+
+    /* Cool-down number inline */
+    .card-row.horizontal {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .card-row.horizontal .row-info { flex: 1; }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <header class="page-header">
+      <div class="page-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 6H5H21" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="10" y1="11" x2="10" y2="17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+          <line x1="14" y1="11" x2="14" y2="17" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </div>
+      <div>
+        <div class="page-title">WipeX Settings</div>
+        <div class="page-subtitle">Advanced filters &amp; preferences</div>
+      </div>
+    </header>
+
+    <!-- Date Range Filter -->
+    <div class="settings-section">
+      <div class="section-title">Date Range Filter</div>
+      <div class="card">
+        <div class="card-row">
+          <label class="row-label">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+            Filter by Date
+          </label>
+          <div class="row-desc">Delete tweets posted within this date range. Leave empty to delete all.</div>
+          <div class="input-row">
+            <div>
+              <label class="field-label">Delete After (from)</label>
+              <input type="date" id="dateFrom">
+            </div>
+            <div>
+              <label class="field-label">Delete Before (to)</label>
+              <input type="date" id="dateTo">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Keyword Filter -->
+    <div class="settings-section">
+      <div class="section-title">Keyword Filter</div>
+      <div class="card">
+        <div class="card-row">
+          <label class="row-label">Delete tweets containing these words</label>
+          <div class="row-desc">Comma-separated. e.g. "politics, rant, old"</div>
+          <textarea id="keywordsInclude" placeholder="politics, rant, bad tweet..."></textarea>
+        </div>
+        <div class="card-row">
+          <label class="row-label">Keep tweets containing these words</label>
+          <div class="row-desc">These tweets will be skipped (whitelist).</div>
+          <textarea id="keywordsExclude" placeholder="pinned, portfolio, thread..."></textarea>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tweet Type Filter -->
+    <div class="settings-section">
+      <div class="section-title">Tweet Type</div>
+      <div class="card">
+        <div class="card-row">
+          <div class="row-desc">Select which types of tweets to delete.</div>
+          <div class="checkbox-grid">
+            <label class="check-item">
+              <input type="checkbox" id="typeOriginal" checked>
+              <span>📝 Original Tweets</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="typeRetweet" checked>
+              <span>🔁 Retweets</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="typeReply" checked>
+              <span>💬 Replies</span>
+            </label>
+            <label class="check-item">
+              <input type="checkbox" id="typeQuote" checked>
+              <span>💭 Quote Tweets</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Advanced Settings -->
+    <div class="settings-section">
+      <div class="section-title">Advanced</div>
+      <div class="card">
+        <div class="card-row horizontal">
+          <div class="row-info">
+            <div class="row-label">Session Cool-Down</div>
+            <div class="row-desc">Auto-pause after this many tweets per session</div>
+          </div>
+          <div class="inline-input">
+            <input type="number" id="cooldown" value="100" min="10" max="1000" step="10">
+            <span>tweets</span>
+          </div>
+        </div>
+        <div class="card-row horizontal">
+          <div class="row-info">
+            <div class="row-label">Pause When Scrolling</div>
+            <div class="row-desc">Stop deletion if you're actively using X</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="pauseOnScroll" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="card-row horizontal">
+          <div class="row-info">
+            <div class="row-label">Adaptive Rate Limiting</div>
+            <div class="row-desc">Auto increase delay on rate limit detection</div>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="adaptiveThrottle" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action -->
+    <div class="btn-row">
+      <button id="btnSave" class="btn btn-primary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Save Settings
+      </button>
+      <button id="btnReset" class="btn btn-secondary">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+        Reset to Defaults
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast">
+    <div class="toast-dot"></div>
+    Settings saved successfully
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>

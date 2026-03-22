@@ -1,0 +1,158 @@
+{
+  "version": "2.0",
+  "last_updated": "2026-03-17T11:00:00+07:00",
+  "ads": [
+    {
+      "id": "aff_denim_skirt_global",
+      "title": "Denim Skirt",
+      "description": "Campaign denim skirt untuk semua site target.",
+      "notes": "Global campaign",
+      "links": [
+        { "url": "https://t.co/CDOV4P593x", "weight": 100 },
+        { "url": "https://t.co/T6EgvxGHnl", "weight": 100 },
+        { "url": "https://t.co/AH9JODS3W6", "weight": 100 }
+      ],
+      "target_websites": [],
+      "trigger_count": 1,
+      "frequency": {
+        "once_per_24h": false,
+        "hide_after_click": false
+      },
+      "schedule": {
+        "start_date": null,
+        "end_date": null
+      },
+      "status": "active"
+    },
+    {
+      "id": "aff_parfume_global",
+      "title": "Parfume",
+      "description": "Campaign parfume untuk semua site target.",
+      "notes": "Global campaign",
+      "links": [
+        { "url": "https://t.co/xbXwJOvfE3", "weight": 100 },
+        { "url": "https://t.co/r7FodHaCds", "weight": 100 },
+        { "url": "https://t.co/Gz8I0nnxQW", "weight": 100 },
+        { "url": "https://t.co/hKtVZ5gw2J", "weight": 100 },
+        { "url": "https://t.co/WehsPvhy5D", "weight": 100 },
+        { "url": "https://t.co/Xo6yWZze9l", "weight": 100 },
+        { "url": "https://t.co/WJvVB5Xxai", "weight": 100 },
+        { "url": "https://t.co/zzI9K9kKwY", "weight": 100 },
+        { "url": "https://t.co/nyZMo5WmbB", "weight": 100 },
+        { "url": "https://t.co/f67UtpKIqd", "weight": 100 },
+        { "url": "https://t.co/8yr23vCy0B", "weight": 100 },
+        { "url": "https://t.co/qSJfEbfaQ2", "weight": 100 },
+        { "url": "https://t.co/wF8LDqSp1I", "weight": 100 },
+        { "url": "https://t.co/j7KdRwVd8G", "weight": 100 },
+        { "url": "https://t.co/Dhc0EoRXNR", "weight": 100 },
+        { "url": "https://t.co/EspS3CuA6r", "weight": 100 },
+        { "url": "https://t.co/kTqoAFkv1k", "weight": 100 },
+        { "url": "https://t.co/jiQzHmobBW", "weight": 100 },
+        { "url": "https://t.co/i8bM4Y8DfS", "weight": 100 },
+        { "url": "https://t.co/cEQLNEr93n", "weight": 100 },
+        { "url": "https://t.co/uSKCzcsLXs", "weight": 100 },
+        { "url": "https://t.co/WWM61qL99U", "weight": 100 },
+        { "url": "https://t.co/lZ7QcBj7Md", "weight": 100 },
+        { "url": "https://t.co/0j2FNoaFJg", "weight": 100 }
+      ],
+      "target_websites": [],
+      "trigger_count": 1,
+      "frequency": {
+        "once_per_24h": false,
+        "hide_after_click": false
+      },
+      "schedule": {
+        "start_date": null,
+        "end_date": null
+      },
+      "status": "active"
+    },
+    {
+      "id": "aff_kaos_pria_global",
+      "title": "Kaos Pria",
+      "description": "Campaign kaos pria untuk semua site target.",
+      "notes": "Global campaign",
+      "links": [
+        { "url": "https://t.co/tDRUpHvluc", "weight": 100 },
+        { "url": "https://t.co/ScwT0GZqhc", "weight": 100 },
+        { "url": "https://t.co/onzcUuplCQ", "weight": 100 },
+        { "url": "https://t.co/9sa3xr28Nv", "weight": 100 },
+        { "url": "https://t.co/rFvlayErcv", "weight": 100 },
+        { "url": "https://t.co/XySkwRydaJ", "weight": 100 },
+        { "url": "https://t.co/zf6G8LQP0L", "weight": 100 }
+      ],
+      "target_websites": [],
+      "trigger_count": 1,
+      "frequency": {
+        "once_per_24h": false,
+        "hide_after_click": false
+      },
+      "schedule": {
+        "start_date": null,
+        "end_date": null
+      },
+      "status": "active"
+    },
+    {
+      "id": "aff_money_alter_global",
+      "title": "Money Alter",
+      "description": "Campaign money alter untuk semua site target.",
+      "notes": "Global campaign",
+      "links": [
+        { "url": "https://t.co/hEXf1BBJhw", "weight": 100 },
+        { "url": "https://t.co/Apa09nSemy", "weight": 100 },
+        { "url": "https://t.co/4brC1mOOGm", "weight": 100 },
+        { "url": "https://t.co/S3qzno7V0M", "weight": 100 },
+        { "url": "https://t.co/pS1h1UWnp9", "weight": 100 },
+        { "url": "https://t.co/k5TqiMbtmW", "weight": 100 },
+        { "url": "https://t.co/FgoSDXbsBz", "weight": 100 },
+        { "url": "https://t.co/uNDe0kogLo", "weight": 100 },
+        { "url": "https://t.co/9YShzvSonS", "weight": 100 },
+        { "url": "https://t.co/HiP0itZ1nz", "weight": 100 },
+        { "url": "https://t.co/b6L4vOsOND", "weight": 100 },
+        { "url": "https://t.co/abT06Z6QMM", "weight": 100 },
+        { "url": "https://t.co/5rDcg5u2LN", "weight": 100 }
+      ],
+      "target_websites": [],
+      "trigger_count": 1,
+      "frequency": {
+        "once_per_24h": false,
+        "hide_after_click": false
+      },
+      "schedule": {
+        "start_date": null,
+        "end_date": null
+      },
+      "status": "active"
+    },
+    {
+      "id": "aff_skincare_global",
+      "title": "Skincare",
+      "description": "Campaign skincare untuk semua site target.",
+      "notes": "Global campaign",
+      "links": [
+        { "url": "https://t.co/SgdI8sLmBr", "weight": 100 },
+        { "url": "https://t.co/dG76HLCAob", "weight": 100 },
+        { "url": "https://t.co/eglTRq8Jye", "weight": 100 },
+        { "url": "https://t.co/3BO3bLn0DQ", "weight": 100 },
+        { "url": "https://t.co/thTIB8Zq5n", "weight": 100 },
+        { "url": "https://t.co/h4GzRQjTuC", "weight": 100 },
+        { "url": "https://t.co/s07ApHtZyQ", "weight": 100 },
+        { "url": "https://t.co/i6LwNGPwAJ", "weight": 100 },
+        { "url": "https://t.co/X9FWySMzJz", "weight": 100 },
+        { "url": "https://t.co/uYpqFzRQMn", "weight": 100 }
+      ],
+      "target_websites": [],
+      "trigger_count": 1,
+      "frequency": {
+        "once_per_24h": false,
+        "hide_after_click": false
+      },
+      "schedule": {
+        "start_date": null,
+        "end_date": null
+      },
+      "status": "active"
+    }
+  ]
+}

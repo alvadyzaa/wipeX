@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — WipeX</title>
+  <meta name="description" content="Learn about WipeX — a free tool built to help you automatically delete all your tweets and clean your X/Twitter presence.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--bg:#09090b;--surface:#18181b;--border:#27272a;--border-muted:#3f3f46;--accent:#e11d48;--text:#fafafa;--text-muted:#a1a1aa;--text-dim:#71717a;--radius:10px;--radius-lg:16px;}
+    body{background:var(--bg);color:var(--text);font-family:'Inter',system-ui,sans-serif;line-height:1.6;-webkit-font-smoothing:antialiased;}
+    .nav{position:sticky;top:0;z-index:100;background:rgba(9,9,11,.85);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);}
+    .nav-inner{max-width:820px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;}
+    .nav-logo{display:flex;align-items:center;gap:9px;text-decoration:none;color:var(--text);font-size:17px;font-weight:700;letter-spacing:-.03em;}
+    .nav-logo-icon{width:32px;height:32px;background:linear-gradient(135deg,#e11d48,#be123c);border-radius:8px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(225,29,72,.35);}
+    .nav-back{display:flex;align-items:center;gap:6px;color:var(--text-muted);text-decoration:none;font-size:13px;font-weight:500;padding:6px 10px;border-radius:6px;transition:color .15s,background .15s;}
+    .nav-back:hover{color:var(--text);background:var(--surface);}
+    main{max-width:640px;margin:0 auto;padding:64px 24px 80px;}
+    .page-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(225,29,72,.1);border:1px solid rgba(225,29,72,.25);color:#f87171;font-size:12px;font-weight:600;padding:4px 12px;border-radius:9999px;margin-bottom:20px;letter-spacing:.02em;}
+    h1{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-.04em;line-height:1.15;margin-bottom:16px;}
+    .lead{font-size:16px;color:var(--text-muted);margin-bottom:40px;line-height:1.7;}
+    .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-lg);padding:28px;margin-bottom:20px;}
+    .card h2{font-size:17px;font-weight:700;letter-spacing:-.02em;margin-bottom:10px;}
+    .card p{font-size:14px;color:var(--text-muted);line-height:1.7;}
+    .tool-list{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:14px;}
+    .tool-list li{display:flex;align-items:flex-start;gap:10px;font-size:14px;line-height:1.55;}
+    .tool-list li a{color:var(--text);text-decoration:none;font-weight:600;transition:color .15s;}
+    .tool-list li a:hover{color:var(--accent);}
+    .tool-list li p{color:var(--text-muted);margin-top:2px;font-size:13px;}
+    footer{border-top:1px solid var(--border);text-align:center;padding:32px 24px;font-size:12px;color:var(--text-dim);}
+    footer a{color:var(--text-dim);text-decoration:none;margin:0 6px;}footer a:hover{color:var(--text-muted);}
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      <div class="nav-logo-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
+      WipeX
+    </a>
+    <a href="/" class="nav-back">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-badge">About</div>
+  <h1>Built to help you clean your digital past</h1>
+  <p class="lead">WipeX is a free, privacy-first Chrome extension created because I personally needed a reliable way to wipe my Twitter history — and existing tools were either paid, sketchy, or broken.</p>
+
+  <div class="card">
+    <h2>🎯 Mission</h2>
+    <p>Everyone deserves a fresh start online. WipeX gives you full control over your X/Twitter content without requiring any API keys, account sign-ups, or monthly fees. Everything runs directly in your browser — no data ever leaves your device.</p>
+  </div>
+
+  <div class="card">
+    <h2>📖 The Story</h2>
+    <p>I wanted to clean my Twitter account but every tool I found either cost money, required dodgy OAuth access, or stopped working after rate limits. So I built WipeX myself — a simple Chrome extension that uses the same actions as a human user, just automated. It grew into a collection of tools to help people manage their X presence.</p>
+  </div>
+
+  <div class="card">
+    <h2>🛠️ All My Tools</h2>
+    <ul class="tool-list">
+      <li>
+        <span>🗑️</span>
+        <div>
+          <a href="https://wipex.pages.dev/">WipeX</a>
+          <p>Auto delete all your tweets and X posts with backup support.</p>
+        </div>
+      </li>
+      <li>
+        <span>👥</span>
+        <div>
+          <a href="https://unfollowx.pages.dev/">UnfollowX</a>
+          <p>Mass unfollow non-followers and trim your following list.</p>
+        </div>
+      </li>
+      <li>
+        <span>🔍</span>
+        <div>
+          <a href="https://shadowbanchecker.pages.dev/">ShadowCheck</a>
+          <p>Check if your Twitter account is shadowbanned.</p>
+        </div>
+      </li>
+      <li>
+        <span>✨</span>
+        <div>
+          <a href="https://aestheticgen.pages.dev/">AestheticGen</a>
+          <p>Generate aesthetic usernames and display names for your profile.</p>
+        </div>
+      </li>
+      <li>
+        <span>🎯</span>
+        <div>
+          <a href="https://x-hunter.pages.dev/">X-Hunter</a>
+          <p>Brainstorm ideas and find viral content strategies for X.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</main>
+
+<footer>
+  <p>© 2025 WipeX — Not affiliated with X Corp.</p>
+  <p style="margin-top:8px"><a href="/">Home</a><a href="contact.html">Contact</a><a href="privacy.html">Privacy</a></p>
+</footer>
+</body>
+</html>

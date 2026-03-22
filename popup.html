@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WipeX — Delete All Tweets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-root">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 6H5H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">WipeX</span>
+          <span class="brand-badge">v1.2.0</span>
+        </div>
+      </div>
+      <button id="btnOptions" class="icon-btn" title="Settings">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+      </button>
+    </header>
+
+    <!-- Tab Switcher -->
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="delete">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        Delete
+      </button>
+      <button class="tab-btn" data-tab="backup">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Backup
+      </button>
+    </div>
+
+    <!-- === DELETE TAB === -->
+    <div id="tab-delete" class="tab-content active">
+
+      <!-- Mode Selector -->
+      <div class="section">
+        <label class="section-label">Delete Mode</label>
+        <div class="mode-grid">
+          <label class="mode-card">
+            <input type="radio" name="mode" value="safe" checked>
+            <div class="mode-card-inner">
+              <span class="mode-icon">🛡️</span>
+              <span class="mode-name">Safe</span>
+              <span class="mode-desc">3–7s delay</span>
+            </div>
+          </label>
+          <label class="mode-card">
+            <input type="radio" name="mode" value="normal">
+            <div class="mode-card-inner">
+              <span class="mode-icon">⚡</span>
+              <span class="mode-name">Normal</span>
+              <span class="mode-desc">1.5–3s delay</span>
+            </div>
+          </label>
+          <label class="mode-card">
+            <input type="radio" name="mode" value="fast">
+            <div class="mode-card-inner">
+              <span class="mode-icon">🚀</span>
+              <span class="mode-name">Fast</span>
+              <span class="mode-desc">0.5–1.5s delay</span>
+            </div>
+          </label>
+        </div>
+        <p class="hint-text">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          Safe mode recommended to avoid shadowbans
+        </p>
+      </div>
+
+      <!-- Stats -->
+      <div class="section">
+        <div class="stats-header">
+          <span class="section-label">Session Progress</span>
+          <div id="statusBadge" class="status-badge idle">
+            <span class="status-dot"></span>
+            <span id="statusText">Idle</span>
+          </div>
+        </div>
+
+        <div class="progress-track">
+          <div id="progressBar" class="progress-fill"></div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="stat-cell">
+            <span class="stat-num brand" id="countDeleted">0</span>
+            <span class="stat-lbl">Deleted</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num" id="countErrors">0</span>
+            <span class="stat-lbl">Skipped</span>
+          </div>
+          <div class="stat-cell">
+            <span class="stat-num muted" id="countETA">—</span>
+            <span class="stat-lbl">ETA</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-area">
+        <button id="btnStart" class="btn btn-danger">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Start Wiping
+        </button>
+        <button id="btnStop" class="btn btn-ghost hidden">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+          Pause
+        </button>
+      </div>
+    </div>
+
+    <!-- === BACKUP TAB === -->
+    <div id="tab-backup" class="tab-content hidden">
+
+      <div class="section">
+        <label class="section-label">Export Options</label>
+        <div class="option-row">
+          <div class="option-info">
+            <span class="option-title">Include Media Info</span>
+            <span class="option-desc">Save image/video URLs alongside tweets</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="includeMedia" checked>
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+        <div class="option-row">
+          <div class="option-info">
+            <span class="option-title">Only Text</span>
+            <span class="option-desc">Plain text backup, no metadata</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" id="onlyText">
+            <span class="toggle-track"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="section">
+        <label class="section-label">Backup Status</label>
+        <div class="backup-info">
+          <span id="backupCount">—</span> tweets collected
+        </div>
+        <div class="progress-track faded">
+          <div id="backupBar" class="progress-fill blue"></div>
+        </div>
+      </div>
+
+      <div class="action-area">
+        <button id="btnCollect" class="btn btn-secondary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          Collect Tweets First
+        </button>
+        <button id="btnExport" class="btn btn-primary hidden">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Download Backup (JSON)
+        </button>
+      </div>
+
+      <div class="hint-text">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        Backup is saved locally — no data leaves your browser
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <a href="https://x.com/miegrains" target="_blank" rel="noopener">Keith</a>
+    </footer>
+
+  </div>
+  <script src="jszip.min.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
