@@ -699,7 +699,7 @@
       WipeX
     </div>
     <p class="footer-tagline">Free tool to automatically delete all your tweets.</p>
-    <p class="footer-visitors" id="visitorCounter" style="font-size:12px;color:var(--text-dim);margin-top:4px;"></p>
+    <p id="visitorCounter" style="font-size:12px;color:var(--text-dim);margin-top:6px;display:none;">👁 <span id="visitorNum"></span></p>
 
     <a href="https://x.com/miegrains" target="_blank" rel="noopener" class="footer-contact">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.253 5.622 5.911-5.622Zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
@@ -806,15 +806,16 @@
 
   // ─── Visitor counter ───
   (function() {
-    const el = document.getElementById('visitorCounter');
-    if (!el) return;
+    const wrap = document.getElementById('visitorCounter');
+    const num  = document.getElementById('visitorNum');
+    if (!wrap || !num) return;
     fetch('https://api.counterapi.dev/v1/wipex/visits/up')
-      .then(r => r.json())
+      .then(r => r.ok ? r.json() : Promise.reject())
       .then(d => {
-        const n = d && d.count ? Number(d.count).toLocaleString() : null;
-        el.textContent = n ? ('👁 ' + n + ' visitors') : '';
+        const n = d && d.count ? Number(d.count) : null;
+        if (n) { num.textContent = n.toLocaleString(); wrap.style.display = ''; }
       })
-      .catch(() => { el.textContent = ''; });
+      .catch(() => {/* hide silently */});
   })();
 
   // ─── Scroll-reveal animations ───
