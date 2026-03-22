@@ -93,16 +93,17 @@
     .tools-btn svg{transition:transform .2s;}
     .tools-dropdown{
       display:none;
-      position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);
+      position:absolute;top:calc(100% + 4px);left:50%;transform:translateX(-50%);
       background:var(--surface);
       border:1px solid var(--border-muted);
       border-radius:var(--radius-lg);
       padding:8px;
       min-width:220px;
       box-shadow:0 12px 40px rgba(0,0,0,.6);
+      /* small top padding acts as invisible bridge so mouse-move to items doesn't close */
     }
-    .tools-item:hover .tools-dropdown{display:block;}
-    .tools-item:hover .tools-btn svg{transform:rotate(180deg);}
+    .tools-dropdown.open{display:block;}
+    .tools-btn.open svg{transform:rotate(180deg);}
     .tool-link{
       display:flex;flex-direction:column;gap:2px;
       padding:10px 12px;border-radius:8px;
@@ -715,7 +716,7 @@
       <a href="privacy.html">Privacy Policy</a>
     </div>
 
-    <p class="footer-copy">© 2025 WipeX — Not affiliated with X Corp. Use responsibly.</p>
+    <p class="footer-copy">© 2026 WipeX — Not affiliated with X Corp. Use responsibly.</p>
   </div>
 </footer>
 
@@ -739,6 +740,32 @@
       hamIcon.innerHTML = iconOpen;
     });
   });
+
+  // ─── Tools dropdown: click-toggle (fixes hover gap bug) ───
+  const toolsBtn = document.querySelector('.tools-btn');
+  const toolsDropdown = document.querySelector('.tools-dropdown');
+  if (toolsBtn && toolsDropdown) {
+    toolsBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = toolsDropdown.classList.contains('open');
+      toolsDropdown.classList.toggle('open', !isOpen);
+      toolsBtn.classList.toggle('open', !isOpen);
+    });
+    // Close when clicking anywhere outside
+    document.addEventListener('click', (e) => {
+      if (!toolsBtn.contains(e.target) && !toolsDropdown.contains(e.target)) {
+        toolsDropdown.classList.remove('open');
+        toolsBtn.classList.remove('open');
+      }
+    });
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        toolsDropdown.classList.remove('open');
+        toolsBtn.classList.remove('open');
+      }
+    });
+  }
 
   // FAQ accordion
   function toggleFaq(btn) {
