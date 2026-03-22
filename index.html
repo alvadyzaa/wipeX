@@ -804,15 +804,17 @@
     document.body.appendChild(s);
   });
 
-  // ─── Visitor counter (localStorage) ───
+  // ─── Visitor counter (counterapi.dev) ───
   (function() {
     const el = document.getElementById('visitorNum');
     if (!el) return;
-    const BASE = 1247; // realistic starting offset
-    let stored = parseInt(localStorage.getItem('wipex_vc') || '0', 10);
-    if (!stored) { stored = BASE; } else { stored += 1; }
-    localStorage.setItem('wipex_vc', stored);
-    el.textContent = stored.toLocaleString();
+    fetch('https://api.counterapi.dev/v1/wipex/visitors/up')
+      .then(r => r.json())
+      .then(data => {
+        const count = data.count ?? data.value ?? 0;
+        el.textContent = Number(count).toLocaleString();
+      })
+      .catch(() => { el.textContent = '—'; });
   })();
 
   // ─── Scroll-reveal animations ───
