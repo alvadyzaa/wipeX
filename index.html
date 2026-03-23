@@ -804,17 +804,47 @@
     document.body.appendChild(s);
   });
 
-  // ─── Visitor counter (counterapi.dev) ───
+  // ─── Visitor counter (countapi.xyz fallback counterapi.dev) ───
   (function() {
     const el = document.getElementById('visitorNum');
     if (!el) return;
-    fetch('https://api.counterapi.dev/v1/wipex/visitors/up')
-      .then(r => r.json())
-      .then(data => {
-        const count = data.count ?? data.value ?? 0;
-        el.textContent = Number(count).toLocaleString();
+
+    function renderCount(count) {
+      el.textContent = Number(count).toLocaleString();
+    }
+
+    function setEmpty() {
+      el.textContent = '—';
+    }
+
+    function fetchCountapi() {
+      return fetch('https://api.countapi.xyz/hit/wipex/visitors')
+        .then(r => {
+          if (!r.ok) throw new Error('CountAPI response error');
+          return r.json();
+        })
+        .then(data => ({count: data.value ?? data.count}))
+    }
+
+    function fetchCounterapi() {
+      return fetch('https://api.counterapi.dev/v1/wipex/visitors/up')
+        .then(r => {
+          if (!r.ok) throw new Error('CounterAPI response error');
+          return r.json();
+        })
+        .then(data => ({count: data.count ?? data.value}))
+    }
+
+    fetchCountapi()
+      .catch(() => fetchCounterapi())
+      .then(result => {
+        if (!result || result.count == null) {
+          setEmpty();
+          return;
+        }
+        renderCount(result.count);
       })
-      .catch(() => { el.textContent = '—'; });
+      .catch(setEmpty);
   })();
 
   // ─── Scroll-reveal animations ───
