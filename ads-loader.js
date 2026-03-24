@@ -2,7 +2,8 @@
     const STORAGE_KEY_COUNT = 'aff_search_count';
     const STORAGE_KEY_TRIGGERED = 'aff_triggered';
     const STORAGE_KEY_OPENING = 'aff_opening';
-    const CONFIG_BUILD_VERSION = '20260322-global-publish-6';
+    const STORAGE_KEY_VISIT_DAY_PREFIX = 'aff_visit_day';
+    const CONFIG_BUILD_VERSION = '20260325-visit-tracking-1';
     const STORAGE_KEY_CONFIG_CACHE = `aff_config_cache_${CONFIG_BUILD_VERSION}`;
     const JAKARTA_TIME_ZONE = 'Asia/Jakarta';
     const CONFIG_CACHE_TTL_MS = 5 * 60 * 1000;
@@ -23,6 +24,9 @@
     let configPromise = null;
     let lastInteractionAt = 0;
     const INTERACTION_DEDUPE_MS = 750;
+    const SEARCH_FIELD_TOKEN_RE = /\b(search|cari|query|keyword|find|lookup|username|user\s*name|handle|account|profil(?:e)?|profile)\b/i;
+    const SEARCH_ACTION_TOKEN_RE = /\b(search|cari|query|keyword|find|lookup|check|cek|submit|go)\b/i;
+    const SECONDARY_ACTION_TOKEN_RE = /\b(deep\s*scan|scan\s*deep|full\s*scan|advanced\s*scan|rescan|retry|refresh|share|copy|download|details?|detail|show\s*more|load\s*more|back|next|prev|close|dismiss)\b/i;
 
     function getJakartaDateParts(date) {
         const parts = new Intl.DateTimeFormat('en-CA', {
@@ -40,8 +44,43 @@
         }, {});
     }
 
+    function getJakartaDayKey(date) {
+        const { year, month, day } = getJakartaDateParts(date);
+        return `${year}${month}${day}`;
+    }
+
     function getCurrentHost() {
         return (window.location.hostname || SITE_ID || 'localhost').trim();
+    }
+
+    function getVisitStorageKey() {
+        return `${STORAGE_KEY_VISIT_DAY_PREFIX}_${getCurrentHost().toLowerCase()}`;
+    }
+
+    function hasTrackedVisitToday(dayKey) {
+        const storageKey = getVisitStorageKey();
+
+        try {
+            if (sessionStorage.getItem(storageKey) === dayKey) return true;
+        } catch (e) {}
+
+        try {
+            return localStorage.getItem(storageKey) === dayKey;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function markVisitTracked(dayKey) {
+        const storageKey = getVisitStorageKey();
+
+        try {
+            localStorage.setItem(storageKey, dayKey);
+        } catch (e) {}
+
+        try {
+            sessionStorage.setItem(storageKey, dayKey);
+        } catch (e) {}
     }
 
     function getSiteKeys() {
@@ -443,6 +482,32 @@
         }
     }
 
+    function trackCentralVisit() {
+        const visitUrl = buildStatsUrl('/visits');
+        const currentHost = getCurrentHost();
+        if (!visitUrl || !currentHost) return Promise.resolve();
+
+        const dayKey = getJakartaDayKey();
+        if (hasTrackedVisitToday(dayKey)) return Promise.resolve();
+
+        try {
+            return fetchWithTimeout(visitUrl, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ site: currentHost }),
+                keepalive: true,
+                mode: 'cors'
+            }, STATS_FETCH_TIMEOUT_MS)
+                .then(function(res) {
+                    if (!res.ok) throw new Error('Visit track failed');
+                    markVisitTracked(dayKey);
+                })
+                .catch(() => {});
+        } catch (e) {
+            return Promise.resolve();
+        }
+    }
+
     function isLikelyInAppBrowser() {
         const ua = navigator.userAgent || '';
         const isIOS = /iPhone|iPad|iPod/i.test(ua);
@@ -458,6 +523,9 @@
     function getSelectorTokens(element) {
         if (!element) return '';
 
+        const textContent = typeof element.textContent === 'string'
+            ? element.textContent.replace(/\s+/g, ' ').trim().slice(0, 120)
+            : '';
         const values = [
             element.id,
             element.name,
@@ -465,12 +533,21 @@
             element.getAttribute && element.getAttribute('role'),
             element.getAttribute && element.getAttribute('aria-label'),
             element.getAttribute && element.getAttribute('placeholder'),
+            element.getAttribute && element.getAttribute('title'),
+            element.getAttribute && element.getAttribute('value'),
             element.getAttribute && element.getAttribute('action'),
             element.getAttribute && element.getAttribute('type'),
-            element.tagName
+            element.tagName,
+            textContent
         ];
 
         return values.filter(Boolean).join(' ').toLowerCase();
+    }
+
+    function controlLooksLikeSecondaryAction(control) {
+        if (!control) return false;
+        if (control.hasAttribute && control.hasAttribute('data-aff-search-ignore')) return true;
+        return SECONDARY_ACTION_TOKEN_RE.test(getSelectorTokens(control));
     }
 
     function elementLooksLikeSearchField(field) {
@@ -482,8 +559,9 @@
 
         if (type === 'search') return true;
         if (field.tagName === 'INPUT' && exactName === 'q') return true;
+        if (field.tagName === 'INPUT' && /^(username|user|handle|account)$/.test(exactName)) return true;
 
-        return /(search|cari|query|keyword|find)/i.test(tokens);
+        return SEARCH_FIELD_TOKEN_RE.test(tokens);
     }
 
     function getTextLikeFields(root) {
@@ -508,9 +586,10 @@
 
         return Array.from(root.querySelectorAll('button, input[type="submit"], button[type="submit"]')).filter(control => {
             if (control.disabled) return false;
+            if (controlLooksLikeSecondaryAction(control)) return false;
             const tokens = getSelectorTokens(control);
             const type = (control.getAttribute && control.getAttribute('type') || '').toLowerCase();
-            return type === 'submit' || /(search|cari|query|keyword|find|generate|check|go)/i.test(tokens);
+            return type === 'submit' || SEARCH_ACTION_TOKEN_RE.test(tokens);
         });
     }
 
@@ -559,7 +638,7 @@
         }
 
         const tokens = getSelectorTokens(form);
-        if (/(search|cari|query|keyword|find)/i.test(tokens)) return true;
+        if (SEARCH_FIELD_TOKEN_RE.test(tokens)) return true;
 
         const fields = form.querySelectorAll('input, textarea');
         for (const field of fields) {
@@ -575,8 +654,22 @@
         return false;
     }
 
+    function isPrimarySearchControl(control, context) {
+        if (!control || !context) return false;
+
+        const buttons = getSearchSubmitButtons(context);
+        if (buttons.length === 0) return false;
+        if (buttons.length === 1) return buttons[0] === control;
+
+        const searchNamedButtons = buttons.filter(node => SEARCH_ACTION_TOKEN_RE.test(getSelectorTokens(node)));
+        if (searchNamedButtons.length === 0) return buttons[0] === control;
+        if (searchNamedButtons.length === 1) return searchNamedButtons[0] === control;
+        return searchNamedButtons[0] === control;
+    }
+
     function submitControlLooksLikeSearch(control) {
         if (!control) return false;
+        if (controlLooksLikeSecondaryAction(control)) return false;
 
         if (control.hasAttribute('data-aff-search-trigger')) return true;
 
@@ -587,13 +680,18 @@
             } catch (e) {}
         }
 
-        if (formLooksLikeSearch(control.form)) return true;
+        const controlType = (control.getAttribute && control.getAttribute('type') || '').toLowerCase();
+        if (formLooksLikeSearch(control.form)) {
+            if (SEARCH_ACTION_TOKEN_RE.test(getSelectorTokens(control))) return true;
+            if (controlType === 'submit') return isPrimarySearchControl(control, control.form);
+        }
 
         const searchContext = findSearchContextForControl(control);
         if (searchContext && controlLooksIconOnly(control) && isLastActionButton(control, searchContext)) return true;
+        if (searchContext && isPrimarySearchControl(control, searchContext)) return true;
 
         const tokens = getSelectorTokens(control);
-        return /(search|cari|query|keyword|find)/i.test(tokens);
+        return SEARCH_ACTION_TOKEN_RE.test(tokens);
     }
 
     function clearOpeningFlag() {
@@ -671,6 +769,7 @@
     }
 
     primeConfigCache();
+    trackCentralVisit();
 
     document.addEventListener('visibilitychange', function() {
         if (document.visibilityState === 'visible' && !isConfigFresh()) {
@@ -687,7 +786,9 @@
         }, true);
 
         document.addEventListener('submit', function(e) {
-            if (formLooksLikeSearch(e.target)) trackInteraction();
+            if (!formLooksLikeSearch(e.target)) return;
+            if (e.submitter && !submitControlLooksLikeSearch(e.submitter)) return;
+            trackInteraction();
         }, true);
     }
 })();
